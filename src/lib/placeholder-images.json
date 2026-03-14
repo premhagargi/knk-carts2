@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-kart",
+      "description": "High-performance racing go-kart on a track at dusk",
+      "imageUrl": "https://picsum.photos/seed/karts1/1920/1080",
+      "imageHint": "racing kart"
+    },
+    {
+      "id": "recreational-kart",
+      "description": "Recreational rental go-kart for amusement parks",
+      "imageUrl": "https://picsum.photos/seed/karts2/1200/800",
+      "imageHint": "rental kart"
+    },
+    {
+      "id": "off-road-buggy",
+      "description": "Powerful off-road buggy for rugged terrain",
+      "imageUrl": "https://picsum.photos/seed/karts3/1200/800",
+      "imageHint": "offroad buggy"
+    },
+    {
+      "id": "race-kart",
+      "description": "Professional competition racing kart",
+      "imageUrl": "https://picsum.photos/seed/karts4/1200/800",
+      "imageHint": "professional kart"
+    },
+    {
+      "id": "track-infrastructure",
+      "description": "Karting track aerial view with safety barriers",
+      "imageUrl": "https://picsum.photos/seed/karts5/1600/900",
+      "imageHint": "karting track"
+    },
+    {
+      "id": "blueprint-bg",
+      "description": "Technical engineering blueprint of a kart chassis",
+      "imageUrl": "https://picsum.photos/seed/karts6/1920/1080",
+      "imageHint": "engineering blueprint"
+    }
+  ]
 }
