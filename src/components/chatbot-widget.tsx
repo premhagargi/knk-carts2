@@ -9,7 +9,7 @@ export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState("")
   const [messages, setMessages] = useState<{ role: 'user' | 'ai', content: string }[]>([
-    { role: 'ai', content: "Welcome to KnK Karts AI Assistant. How can I help you with our world-class karting solutions today?" }
+    { role: 'ai', content: "I am the VCR AI Assistant. How can I help you explore our specialized motorsport design solutions today?" }
   ])
   const [isLoading, setIsLoading] = useState(false)
   const [websiteContent, setWebsiteContent] = useState("")
@@ -36,7 +36,7 @@ export default function ChatbotWidget() {
       
       setMessages(prev => [...prev, { role: 'ai', content: response.answer }])
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', content: "Sorry, I'm experiencing some technical difficulties. Please try again or contact our team directly." }])
+      setMessages(prev => [...prev, { role: 'ai', content: "I'm having trouble processing your vision. Please try again or reach out to VCR directly." }])
     } finally {
       setIsLoading(false)
     }
@@ -53,7 +53,7 @@ export default function ChatbotWidget() {
             className="absolute bottom-20 right-0 w-[350px] bg-black border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[500px]"
           >
             <div className="p-6 bg-primary flex justify-between items-center">
-              <span className="text-[10px] font-black uppercase tracking-widest text-white">KnK AI Assistant</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-white">VCR AI ASSISTANT</span>
               <button onClick={() => setIsOpen(false)}><X className="w-4 h-4 text-white" /></button>
             </div>
 
@@ -82,7 +82,7 @@ export default function ChatbotWidget() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder="ASK ABOUT KNK..."
+                placeholder="ASK ABOUT VCR DESIGN..."
                 className="bg-transparent text-[10px] font-bold uppercase tracking-widest p-4 w-full outline-none border border-white/10 focus:border-primary transition-colors"
               />
               <button 

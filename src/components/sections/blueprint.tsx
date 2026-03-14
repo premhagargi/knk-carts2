@@ -14,7 +14,7 @@ export default function Blueprint() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] z-0 pointer-events-none opacity-30">
         <Image
           src={bg?.imageUrl || ''}
-          alt="Technical Blueprint"
+          alt="VCR Engineering Blueprint"
           fill
           className="object-contain"
           data-ai-hint="engineering blueprint"
@@ -29,17 +29,17 @@ export default function Blueprint() {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <h2 className="text-xs font-bold tracking-[0.8em] uppercase text-primary mb-12">TECHNICAL SUPERIORITY</h2>
+            <h2 className="text-xs font-bold tracking-[0.8em] uppercase text-primary mb-12">DESIGN LEADERSHIP</h2>
             <p className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tightest leading-[0.9] mb-12">
-              PRECISION <br /> <span className="text-blue-500">CRAFTED.</span>
+              VISION <br /> <span className="text-blue-500">REALIZED.</span>
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 w-full max-w-5xl mt-12">
             {[
-              { title: "CAD OPTIMIZED", desc: "Every chassis is stress-tested in 3D environments for maximum stiffness." },
-              { title: "SITE SUPERVISION", desc: "Our engineers stay on-site during track construction for total precision." },
-              { title: "TELEMETRY READY", desc: "Integrated fleet management for commercial tracking of every lap." }
+              { title: "UNORTHODOX DESIGN", desc: "Avoiding mass-produced robotic approaches to focus on human-centric performance." },
+              { title: "INTELLECTUAL PROPERTY", desc: "Class 35 registered design rights covering advertisement and karting support." },
+              { title: "PRECISION ADVISORY", desc: "Providing strategic business management and technical support to the industry." }
             ].map((box, i) => (
               <motion.div
                 key={i}

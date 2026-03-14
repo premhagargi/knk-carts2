@@ -1,29 +1,29 @@
 "use client"
 
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import Image from 'next/image'
 import { PlaceHolderImages } from '@/lib/placeholder-images'
 
 const products = [
   {
-    title: "RECREATIONAL",
-    subtitle: "Petrol & Electric",
-    desc: "Engineered for maximum durability and low maintenance for amusement parks worldwide.",
+    title: "V-CONCEPT",
+    subtitle: "Recreational Design",
+    desc: "VCR-patented chassis geometry optimized for commercial durability and low maintenance cycles.",
     image: PlaceHolderImages.find(img => img.id === 'recreational-kart')?.imageUrl || '',
     color: "from-blue-900/40"
   },
   {
-    title: "RACE",
-    subtitle: "Competition Ready",
-    desc: "Championship-winning geometry crafted with aerospace precision for serious athletes.",
+    title: "C-REALITY",
+    subtitle: "Competition Design",
+    desc: "Unorthodox engineering approaches that redefine race-day performance and driver feedback.",
     image: PlaceHolderImages.find(img => img.id === 'race-kart')?.imageUrl || '',
     color: "from-red-900/40"
   },
   {
-    title: "OFF-ROAD",
-    subtitle: "Terrain Domination",
-    desc: "Rugged buggies designed to conquer the harshest environments with comfort and safety.",
+    title: "R-TERRAIN",
+    subtitle: "Off-Road Engineering",
+    desc: "Specialized buggy concepts designed for extreme environments with VCR's signature precision.",
     image: PlaceHolderImages.find(img => img.id === 'off-road-buggy')?.imageUrl || '',
     color: "from-gray-900/40"
   }
@@ -34,10 +34,10 @@ export default function Products() {
   const { scrollXProgress } = useScroll({ container: containerRef })
 
   return (
-    <section id="karts" className="py-32 bg-black/40">
+    <section id="portfolio" className="py-32 bg-black/40">
       <div className="container mx-auto px-6 mb-20">
-        <h2 className="text-xs font-bold tracking-[0.5em] uppercase text-primary mb-4">THE FLEET</h2>
-        <p className="text-4xl md:text-6xl font-black uppercase tracking-tightest">PRECISION LINEUP</p>
+        <h2 className="text-xs font-bold tracking-[0.5em] uppercase text-primary mb-4">DESIGN PORTFOLIO</h2>
+        <p className="text-4xl md:text-6xl font-black uppercase tracking-tightest">THE VCR LINEUP</p>
       </div>
 
       <div className="relative">

@@ -1,10 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow that answers user questions based on provided website content.
- *
- * - answerWebsiteContent - A function that handles answering questions using the website content.
- * - ChatbotInput - The input type for the answerWebsiteContent function.
- * - ChatbotOutput - The return type for the answerWebsiteContent function.
+ * @fileOverview A Genkit flow that answers user questions about Visions, Concepts & Realities (VCR).
  */
 
 import {ai} from '@/ai/genkit';
@@ -17,7 +13,7 @@ const ChatbotInputSchema = z.object({
 export type ChatbotInput = z.infer<typeof ChatbotInputSchema>;
 
 const ChatbotOutputSchema = z.object({
-  answer: z.string().describe('The answer to the user\'s question based on the website content.'),
+  answer: z.string().describe('The answer to the user\'s question based on VCR brand identity.'),
 });
 export type ChatbotOutput = z.infer<typeof ChatbotOutputSchema>;
 
@@ -29,9 +25,17 @@ const answerWebsiteContentPrompt = ai.definePrompt({
   name: 'answerWebsiteContentPrompt',
   input: {schema: ChatbotInputSchema},
   output: {schema: ChatbotOutputSchema},
-  prompt: `You are a helpful and knowledgeable assistant that answers questions about a website's content.
+  prompt: `You are a helpful and knowledgeable assistant for Visions, Concepts & Realities (VCR).
 
-Use ONLY the provided website content to answer the user's question. If the answer cannot be found in the provided content, state that you don't have enough information from the given content to answer the question.
+VCR is a specialized design firm associated with KnK Karts (P) Ltd., holding the design rights for all karts manufactured by KnK.
+Key information:
+- Proprietor: Mr. Indrajeet Singh.
+- Co-founded: By Indrajeet Singh and his son Ishaan Singh in 2000.
+- Philosophy: Function-driven, unorthodox design, avoiding mass-produced robotic manufacturing.
+- Manufacturing Partner: KnK Karts.
+- VCR defines the "Visions, Concepts, and Realities" behind every machine.
+
+Use the provided website content to answer the user's question. Emphasize VCR as the design authority.
 
 Website Content:
 {{websiteContent}}

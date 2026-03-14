@@ -6,8 +6,8 @@ import ChatbotWidget from '@/components/chatbot-widget';
 import ScrollBackground from '@/components/scroll-background';
 
 export const metadata: Metadata = {
-  title: 'KnK Karts | India\'s Premium Karting Ecosystem',
-  description: 'Unleash performance with 25 years of excellence in go-kart manufacturing, track design, and turnkey motorsport solutions.',
+  title: 'VCR | Visions, Concepts & Realities - Motorsport Design Firm',
+  description: 'Specialized motorsport design firm developing high-performance, handcrafted go-karts. Precision engineering and race-ready performance by VCR, manufactured by KnK Karts.',
 };
 
 export default function RootLayout({

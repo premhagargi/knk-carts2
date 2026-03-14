@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import Link from 'next/link'
 
 export default function Navbar() {
@@ -24,13 +24,13 @@ export default function Navbar() {
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link href="/" className="group">
           <span className="text-2xl font-bold tracking-tightest uppercase italic flex items-center gap-2">
-            <span className="bg-primary px-1 text-black">KNK</span>
-            <span className="text-white group-hover:text-primary transition-colors">KARTS</span>
+            <span className="bg-primary px-1 text-black">VCR</span>
+            <span className="text-white group-hover:text-primary transition-colors">DESIGN</span>
           </span>
         </Link>
 
         <div className="hidden md:flex items-center gap-12">
-          {['Karts', 'Track Solutions', 'Engineering', 'Legacy'].map((item) => (
+          {['Portfolio', 'Ecosystem', 'Engineering', 'Legacy'].map((item) => (
             <Link
               key={item}
               href={`#${item.toLowerCase().replace(' ', '-')}`}
@@ -42,7 +42,7 @@ export default function Navbar() {
         </div>
 
         <button className="border border-white/20 px-6 py-2 text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all">
-          Enquire Now
+          Design Inquiry
         </button>
       </div>
     </motion.nav>

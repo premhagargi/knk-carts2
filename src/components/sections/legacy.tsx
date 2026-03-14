@@ -17,9 +17,9 @@ export default function Legacy() {
               25
             </h2>
             <div className="-mt-12 md:-mt-32 relative z-10">
-              <span className="text-primary text-xl md:text-2xl font-bold uppercase tracking-[0.3em]">YEARS OF IMPACT</span>
+              <span className="text-primary text-xl md:text-2xl font-bold uppercase tracking-[0.3em]">YEARS OF VISION</span>
               <p className="text-4xl md:text-6xl font-black uppercase tracking-tighter mt-4 max-w-xl">
-                ENGINEERING <br />LEGENDS.
+                CRAFTING <br />PERFORMANCE.
               </p>
             </div>
           </motion.div>
@@ -32,29 +32,29 @@ export default function Legacy() {
             className="flex flex-col gap-12"
           >
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-primary">Global Presence</h3>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-primary">The VCR Philosophy</h3>
               <p className="text-xl md:text-2xl font-light text-white/80 leading-relaxed">
-                From Canada to Singapore, our hand-built karts dominate the global track ecosystem. 
-                Engineering at a world standard, driven by a quarter-century of racing DNA.
+                Founded by Indrajeet Singh and Ishaan Singh, VCR represents the pinnacle of function-driven design. 
+                As the design authority for KnK Karts (P) Ltd., we reject mass-produced robotics in favor of precision hand-built engineering.
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-8">
               <div>
-                <span className="block text-3xl font-black mb-1">12+</span>
-                <span className="text-[10px] uppercase tracking-widest text-white/40">Countries Served</span>
+                <span className="block text-3xl font-black mb-1">2000</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/40">Foundation Year</span>
               </div>
               <div>
-                <span className="block text-3xl font-black mb-1">250+</span>
-                <span className="text-[10px] uppercase tracking-widest text-white/40">Tracks Designed</span>
+                <span className="block text-3xl font-black mb-1">Class 35</span>
+                <span className="text-[10px] uppercase tracking-widest text-white/40">Design Rights</span>
               </div>
             </div>
 
             <div className="border-l-2 border-primary pl-8 py-2">
               <p className="text-sm uppercase tracking-widest font-bold text-white/60 leading-loose">
-                Hand-Built Engineering<br />
-                Trusted across continents<br />
-                Designed for performance
+                Proprietor: Indrajeet Singh<br />
+                Co-Founder: Ishaan Singh<br />
+                Strategic Partner: KnK Karts
               </p>
             </div>
           </motion.div>

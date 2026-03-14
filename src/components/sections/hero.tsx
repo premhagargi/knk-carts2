@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { PlaceHolderImages } from '@/lib/placeholder-images'
@@ -18,7 +17,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         <Image
           src={heroImage?.imageUrl || ''}
-          alt="KnK Karts Hero"
+          alt="VCR Motorsport Design"
           fill
           className="object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-1000"
           priority
@@ -35,10 +34,10 @@ export default function Hero() {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-block text-[10px] sm:text-xs font-bold tracking-[0.4em] uppercase text-primary mb-6">
-              Est. 1999 • Mumbai, India
+              Visions • Concepts • Realities
             </span>
             <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.8] tracking-tightest uppercase mb-12">
-              KNK <span className="text-primary italic">KARTS</span>
+              VCR <span className="text-primary italic">STUDIO</span>
             </h1>
           </motion.div>
 
@@ -49,15 +48,15 @@ export default function Hero() {
             className="flex flex-col md:flex-row gap-8 items-start md:items-center"
           >
             <p className="text-lg md:text-xl font-light tracking-tight max-w-lg">
-              Dive into 25 years of excellence. India's leading manufacturer of high-performance racing ecosystems.
+              Function-driven motorsport engineering. We define the design rights for the world's most precise handcrafted karts.
             </p>
             
             <div className="flex gap-4">
               <button className="bg-primary text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center gap-3">
-                View Karts <ArrowRight className="w-4 h-4" />
+                Design Concepts <ArrowRight className="w-4 h-4" />
               </button>
               <button className="border border-white/20 text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-                Track Solutions
+                Manufacturing Partner
               </button>
             </div>
           </motion.div>
@@ -70,7 +69,7 @@ export default function Hero() {
         transition={{ duration: 2, repeat: Infinity }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
       >
-        <span className="text-[8px] uppercase tracking-[0.3em] font-bold text-white/40">Scroll to Explore</span>
+        <span className="text-[8px] uppercase tracking-[0.3em] font-bold text-white/40">Discover VCR</span>
         <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
       </motion.div>
     </section>
