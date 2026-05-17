@@ -24,6 +24,13 @@
     --input: 0 0% 20%;
     --ring: 212 100% 54%;
     --radius: 0rem;
+
+    /* Admin surface palette — used only inside /admin/** */
+    --admin-bg: 0 0% 4%;
+    --admin-surface: 0 0% 7%;
+    --admin-surface-2: 0 0% 10%;
+    --admin-border: 0 0% 16%;
+    --admin-muted-foreground: 0 0% 60%;
   }
 }
 

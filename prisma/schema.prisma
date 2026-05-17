@@ -1,0 +1,91 @@
+// VCR Prisma schema
+//
+// Workflow:
+//   npm run db:migrate          # create + apply a new migration in dev
+//   npm run db:migrate:deploy   # apply pending migrations in CI / prod
+//   npm run db:push             # quick sync without a migration file
+//   npm run db:studio           # open Prisma Studio
+//
+// Notes:
+// - DATABASE_URL points at the pooled connection (Supabase pgbouncer) and is
+//   used at runtime. directUrl is the un-pooled connection used for
+//   migrations and introspection.
+// - Row Level Security policies and triggers are not modeled in Prisma —
+//   they live in migrations/<timestamp>_init/migration.sql alongside the
+//   table DDL. When you change a model here, the generated migration will
+//   add to that SQL stream; keep policy changes in their own follow-up
+//   migration files (see Prisma docs on raw SQL migrations).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug             String   @unique
+  name             String
+  category         String
+  shortDescription String?  @map("short_description")
+  description      String?
+  specs            Json     @default("{}")
+  priceInr         Decimal? @map("price_inr") @db.Decimal
+  featured         Boolean  @default(false)
+  images           Json     @default("[]")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@index([featured], name: "products_featured_idx")
+  @@map("products")
+}
+
+model Service {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug             String   @unique
+  name             String
+  shortDescription String?  @map("short_description")
+  description      String?
+  features         Json     @default("[]")
+  heroImage        Json?    @map("hero_image")
+  gallery          Json     @default("[]")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("services")
+}
+
+model Project {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug        String   @unique
+  title       String
+  client      String?
+  location    String?
+  year        Int?
+  description String?
+  images      Json     @default("[]")
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@index([featured], name: "projects_featured_idx")
+  @@map("projects")
+}
+
+model Inquiry {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String
+  email       String
+  company     String?
+  inquiryType String?  @map("inquiry_type")
+  message     String
+  status      String   @default("new")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@index([status, createdAt(sort: Desc)], name: "inquiries_status_idx")
+  @@map("inquiries")
+}

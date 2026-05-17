@@ -55,6 +55,13 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        admin: {
+          bg: 'hsl(var(--admin-bg))',
+          surface: 'hsl(var(--admin-surface))',
+          'surface-2': 'hsl(var(--admin-surface-2))',
+          border: 'hsl(var(--admin-border))',
+          muted: 'hsl(var(--admin-muted-foreground))',
+        },
       },
       borderRadius: {
         none: '0',
