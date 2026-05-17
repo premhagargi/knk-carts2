@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Cloudinary cloud name is a public identifier (embedded in <CldImage> URLs
+  # like https://res.cloudinary.com/<cloud_name>/...), not a secret. The real
+  # secret is CLOUDINARY_API_SECRET. NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME is
+  # inlined into the client bundle by design — that's how next-cloudinary
+  # signs its URLs in the browser.
+  #
+  # SEED_ADMIN_EMAIL is the admin username; the password is the secret.
+  SECRETS_SCAN_OMIT_KEYS = "CLOUDINARY_CLOUD_NAME,NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,SEED_ADMIN_EMAIL,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
+
+  # The webpack cache is an internal build artifact, not deployed output —
+  # don't scan it.
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**,.next/cache/**"
