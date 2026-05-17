@@ -32,19 +32,6 @@ export default function ImageField({
 }: Props) {
   const [assets, setAssets] = useState<ImageAsset[]>(defaultValue);
 
-  const fetchSignature = async (
-    paramsToSign: Record<string, string | number>,
-  ): Promise<string> => {
-    const res = await fetch('/api/cloudinary/sign', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ entity, paramsToSign }),
-    });
-    if (!res.ok) throw new Error('Sign request failed');
-    const data = await res.json();
-    return data.signature as string;
-  };
-
   return (
     <div className="space-y-3">
       <label className="block text-[10px] uppercase tracking-widest font-bold text-admin-muted">

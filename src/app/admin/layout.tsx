@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { signOut } from './actions';
-import { LogOut } from 'lucide-react';
 import AdminNav from './admin-nav';
+import SignOutButton from './sign-out-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,9 +15,7 @@ export default async function AdminLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  // /admin/login renders without the shell — it's still inside this layout,
-  // but the login page doesn't depend on user being set. We just hide the
-  // sidebar/topbar when there's no user.
+  // /admin/login renders without the shell.
   if (!user) {
     return (
       <div className="min-h-screen bg-admin-bg text-white">{children}</div>
@@ -37,15 +34,9 @@ export default async function AdminLayout({
           </Link>
         </div>
         <AdminNav />
-        <form action={signOut} className="border-t border-admin-border">
-          <button
-            type="submit"
-            className="w-full flex items-center gap-3 px-6 py-4 text-[11px] uppercase tracking-widest font-semibold text-white/60 hover:text-primary transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            Sign out
-          </button>
-        </form>
+        <div className="border-t border-admin-border">
+          <SignOutButton />
+        </div>
       </aside>
 
       <div className="flex-1 min-w-0 flex flex-col">

@@ -1,20 +1,32 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { signInWithPassword } from '../actions';
+import { useRouter } from 'next/navigation';
+import { api } from '@/lib/api-client';
 
 export default function LoginForm({ next }: { next: string }) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
   return (
     <form
-      action={(formData) => {
+      onSubmit={(e) => {
+        e.preventDefault();
         setError(null);
-        formData.set('next', next);
+        const fd = new FormData(e.currentTarget);
+        const payload = {
+          email: String(fd.get('email') ?? '').trim(),
+          password: String(fd.get('password') ?? ''),
+        };
         startTransition(async () => {
-          const res = await signInWithPassword(formData);
-          if (res?.error) setError(res.error);
+          try {
+            await api.post('/api/auth/sign-in', payload);
+            router.push(next || '/admin');
+            router.refresh();
+          } catch (err) {
+            setError(err instanceof Error ? err.message : 'Sign-in failed.');
+          }
         });
       }}
       className="space-y-6"
