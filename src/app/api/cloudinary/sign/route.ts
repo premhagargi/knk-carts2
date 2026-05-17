@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { signUploadParams } from '@/lib/cloudinary';
 
-const ALLOWED_FOLDERS = new Set(['products', 'services', 'projects']);
+const ALLOWED_FOLDERS = new Set(['products', 'services', 'projects', 'posts']);
 
 export async function POST(req: Request) {
   const supabase = await createServerSupabaseClient();

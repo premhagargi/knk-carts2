@@ -7,6 +7,7 @@ import {
   Package,
   Wrench,
   FolderKanban,
+  Newspaper,
   Inbox,
 } from 'lucide-react';
 
@@ -15,6 +16,7 @@ const nav = [
   { href: '/admin/products', label: 'Products', icon: Package },
   { href: '/admin/services', label: 'Services', icon: Wrench },
   { href: '/admin/projects', label: 'Projects', icon: FolderKanban },
+  { href: '/admin/posts', label: 'Journal', icon: Newspaper },
   { href: '/admin/inquiries', label: 'Inquiries', icon: Inbox },
 ];
 

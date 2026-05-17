@@ -1,7 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { DeleteButton, EditLink } from '@/components/admin/admin-ui';
-import { deleteProject } from '@/app/actions/projects';
+import { api } from '@/lib/api-client';
 
 type Project = {
   id: string;
@@ -14,6 +15,7 @@ type Project = {
 };
 
 export default function ProjectRow({ project }: { project: Project }) {
+  const router = useRouter();
   return (
     <div className="grid grid-cols-12 gap-4 p-4 border-b border-admin-border items-center text-sm last:border-b-0 hover:bg-admin-surface-2">
       <div className="col-span-4 flex items-center gap-3">
@@ -31,7 +33,12 @@ export default function ProjectRow({ project }: { project: Project }) {
       </div>
       <div className="col-span-2 flex justify-end items-center gap-4">
         <EditLink href={`/admin/projects/${project.id}`} />
-        <DeleteButton onConfirm={async () => deleteProject(project.id)} />
+        <DeleteButton
+          onConfirm={async () => {
+            await api.del(`/api/projects/${project.id}`);
+            router.refresh();
+          }}
+        />
       </div>
     </div>
   );

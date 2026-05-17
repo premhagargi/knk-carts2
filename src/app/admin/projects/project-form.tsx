@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { createProject, updateProject } from '@/app/actions/projects';
+import { api } from '@/lib/api-client';
 import { Field, inputClass, textareaClass } from '@/components/admin/admin-ui';
 import ImageField, { type ImageAsset } from '@/components/admin/image-field';
 import { slugify } from '@/lib/slug';
@@ -30,13 +30,47 @@ export default function ProjectForm({ project }: { project?: ProjectRecord }) {
 
   return (
     <form
-      action={(formData) => {
+      onSubmit={(e) => {
+        e.preventDefault();
         setError(null);
+        const fd = new FormData(e.currentTarget);
+
+        let images: ImageAsset[] = [];
+        const imagesRaw = String(fd.get('images') ?? '').trim();
+        if (imagesRaw) {
+          try {
+            images = JSON.parse(imagesRaw);
+          } catch {
+            setError('Images payload is malformed.');
+            return;
+          }
+        }
+
+        const yearRaw = String(fd.get('year') ?? '').trim();
+
+        const payload = {
+          title: String(fd.get('title') ?? ''),
+          slug: String(fd.get('slug') ?? ''),
+          client: String(fd.get('client') ?? ''),
+          location: String(fd.get('location') ?? ''),
+          year: yearRaw ? parseInt(yearRaw, 10) : null,
+          description: String(fd.get('description') ?? ''),
+          featured: fd.get('featured') === 'on',
+          images,
+        };
+
         startTransition(async () => {
-          const res = isEdit
-            ? await updateProject(project!.id, formData)
-            : await createProject(formData);
-          if (res && 'ok' in res && !res.ok) setError(res.error);
+          try {
+            if (isEdit) {
+              await api.patch(`/api/projects/${project!.id}`, payload);
+            } else {
+              await api.post('/api/projects', payload);
+            }
+            router.push('/admin/projects');
+            router.refresh();
+          } catch (err) {
+            setError(err instanceof Error ? err.message : 'Unknown error');
+          }
         });
       }}
       className="space-y-8 max-w-3xl"

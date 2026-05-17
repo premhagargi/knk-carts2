@@ -76,6 +76,23 @@ model Project {
   @@map("projects")
 }
 
+model Post {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug        String    @unique
+  title       String
+  excerpt     String?
+  body        String
+  author      String?
+  coverImage  Json?     @map("cover_image")
+  featured    Boolean   @default(false)
+  publishedAt DateTime? @map("published_at") @db.Timestamptz
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@index([publishedAt(sort: Desc)], name: "posts_published_at_idx")
+  @@map("posts")
+}
+
 model Inquiry {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String

@@ -1,73 +1,99 @@
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 
-const posts: Record<
-  string,
-  { title: string; date: string; author: string; body: string[] }
-> = {
-  'designing-the-genesis-sxx5': {
-    title: 'Designing the Genesis SXX5',
-    date: '2026-02-12',
-    author: 'Ishaan Singh',
-    body: [
-      'When we began the SXX5 program in 2022, the brief was deceptively simple: a sprint chassis that wouldn’t punish a mid-pack driver for an imperfect entry.',
-      'We started with torsional response. The previous generation of CrMo frames was, frankly, too stiff at the front-end pickup — the kart would push under braking unless the driver was perfectly geometric.',
-      'The fix wasn’t dramatic: a relocated pickup, a wider track at the rear, and an aluminium seat-mount cluster that lets the seat take a controlled flex through the apex. The result is a chassis you can hustle.',
-    ],
-  },
-  'monsoon-grade-track-drainage': {
-    title: 'Monsoon-grade track drainage',
-    date: '2026-01-18',
-    author: 'VCR Engineering',
-    body: [
-      'In Belagavi we plan for 200mm of rain in an afternoon. That number isn’t hypothetical — it’s the design load for every karting venue we’ve commissioned in tropical climates.',
-      'The trick is to do most of the work below the surface. Cambered tarmac and well-cut gutters carry the first 20mm; everything beyond that is the job of the subsurface drainage network.',
-    ],
-  },
-  'rental-fleet-economics-101': {
-    title: 'Rental fleet economics 101',
-    date: '2025-12-04',
-    author: 'Indrajeet Singh',
-    body: [
-      'The single best predictor of rental fleet profitability is per-lap maintenance cost — and it’s the metric most operators don’t track.',
-      'Track it, and the obvious wins reveal themselves: a $4 sprocket lasting 1,500 laps vs 4,000 laps is not a $4 decision, it’s a $40,000 decision over the year.',
-    ],
-  },
+export const dynamic = 'force-dynamic';
+
+type Post = {
+  slug: string;
+  title: string;
+  excerpt: string | null;
+  body: string;
+  author: string | null;
+  cover_image: {
+    secure_url: string;
+    width: number;
+    height: number;
+  } | null;
+  published_at: string;
 };
 
-export function generateStaticParams() {
-  return Object.keys(posts).map((slug) => ({ slug }));
+async function getPost(slug: string): Promise<Post | null> {
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase
+    .from('posts')
+    .select('slug, title, excerpt, body, author, cover_image, published_at')
+    .eq('slug', slug)
+    .not('published_at', 'is', null)
+    .lte('published_at', new Date().toISOString())
+    .maybeSingle();
+  return (data as Post | null) ?? null;
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const p = posts[params.slug];
-  if (!p) return {};
-  return { title: `${p.title} | VCR Journal` };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPost(slug);
+  if (!post) return {};
+  return {
+    title: `${post.title} | VCR Journal`,
+    description: post.excerpt ?? undefined,
+  };
 }
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  const post = posts[params.slug];
+export default async function PostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPost(slug);
   if (!post) notFound();
+
+  const paragraphs = post.body
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
   return (
     <>
       <PageHeader
-        eyebrow={post.date}
+        eyebrow={new Date(post.published_at).toISOString().slice(0, 10)}
         title={post.title}
-        description={`By ${post.author}`}
+        description={post.author ? `By ${post.author}` : undefined}
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Journal', href: '/blog' },
           { label: post.title },
         ]}
       />
+      {post.cover_image && (
+        <section className="py-12">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <div className="relative w-full aspect-[16/9] border border-white/10">
+              <Image
+                src={post.cover_image.secure_url}
+                alt={post.title}
+                fill
+                sizes="(min-width: 1024px) 896px, 100vw"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </div>
+        </section>
+      )}
       <article className="py-20">
         <div className="container mx-auto px-6 max-w-3xl space-y-8">
-          {post.body.map((para, i) => (
+          {paragraphs.map((para, i) => (
             <p
               key={i}
-              className="text-xl font-light text-white/80 leading-relaxed"
+              className="text-xl font-light text-white/80 leading-relaxed whitespace-pre-wrap"
             >
               {para}
             </p>

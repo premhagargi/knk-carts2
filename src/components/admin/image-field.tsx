@@ -15,7 +15,7 @@ export type ImageAsset = {
 
 type Props = {
   name: string;
-  entity: 'products' | 'services' | 'projects';
+  entity: 'products' | 'services' | 'projects' | 'posts';
   multiple?: boolean;
   defaultValue?: ImageAsset[];
   label?: string;

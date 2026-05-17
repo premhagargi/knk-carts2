@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { createService, updateService } from '@/app/actions/services';
+import { api } from '@/lib/api-client';
 import { Field, inputClass, textareaClass } from '@/components/admin/admin-ui';
 import ImageField, { type ImageAsset } from '@/components/admin/image-field';
 import { slugify } from '@/lib/slug';
@@ -29,13 +29,61 @@ export default function ServiceForm({ service }: { service?: ServiceRecord }) {
 
   return (
     <form
-      action={(formData) => {
+      onSubmit={(e) => {
+        e.preventDefault();
         setError(null);
+        const fd = new FormData(e.currentTarget);
+
+        const features = String(fd.get('features') ?? '')
+          .split('\n')
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        let hero_image: ImageAsset | null = null;
+        const heroRaw = String(fd.get('hero_image') ?? '').trim();
+        if (heroRaw) {
+          try {
+            const parsed = JSON.parse(heroRaw);
+            hero_image = Array.isArray(parsed) ? (parsed[0] ?? null) : parsed;
+          } catch {
+            setError('Hero image payload is malformed.');
+            return;
+          }
+        }
+
+        let gallery: ImageAsset[] = [];
+        const galleryRaw = String(fd.get('gallery') ?? '').trim();
+        if (galleryRaw) {
+          try {
+            gallery = JSON.parse(galleryRaw);
+          } catch {
+            setError('Gallery payload is malformed.');
+            return;
+          }
+        }
+
+        const payload = {
+          name: String(fd.get('name') ?? ''),
+          slug: String(fd.get('slug') ?? ''),
+          short_description: String(fd.get('short_description') ?? ''),
+          description: String(fd.get('description') ?? ''),
+          features,
+          hero_image,
+          gallery,
+        };
+
         startTransition(async () => {
-          const res = isEdit
-            ? await updateService(service!.id, formData)
-            : await createService(formData);
-          if (res && 'ok' in res && !res.ok) setError(res.error);
+          try {
+            if (isEdit) {
+              await api.patch(`/api/services/${service!.id}`, payload);
+            } else {
+              await api.post('/api/services', payload);
+            }
+            router.push('/admin/services');
+            router.refresh();
+          } catch (err) {
+            setError(err instanceof Error ? err.message : 'Unknown error');
+          }
         });
       }}
       className="space-y-8 max-w-3xl"

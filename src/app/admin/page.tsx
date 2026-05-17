@@ -5,10 +5,11 @@ export const dynamic = 'force-dynamic';
 
 async function getCounts() {
   const supabase = await createServerSupabaseClient();
-  const [products, services, projects, inquiries] = await Promise.all([
+  const [products, services, projects, posts, inquiries] = await Promise.all([
     supabase.from('products').select('*', { count: 'exact', head: true }),
     supabase.from('services').select('*', { count: 'exact', head: true }),
     supabase.from('projects').select('*', { count: 'exact', head: true }),
+    supabase.from('posts').select('*', { count: 'exact', head: true }),
     supabase
       .from('inquiries')
       .select('*', { count: 'exact', head: true })
@@ -18,12 +19,19 @@ async function getCounts() {
     products: products.count ?? 0,
     services: services.count ?? 0,
     projects: projects.count ?? 0,
+    posts: posts.count ?? 0,
     newInquiries: inquiries.count ?? 0,
   };
 }
 
 export default async function AdminDashboard() {
-  let counts = { products: 0, services: 0, projects: 0, newInquiries: 0 };
+  let counts = {
+    products: 0,
+    services: 0,
+    projects: 0,
+    posts: 0,
+    newInquiries: 0,
+  };
   try {
     counts = await getCounts();
   } catch {
@@ -34,6 +42,7 @@ export default async function AdminDashboard() {
     { label: 'Products', value: counts.products, href: '/admin/products' },
     { label: 'Services', value: counts.services, href: '/admin/services' },
     { label: 'Projects', value: counts.projects, href: '/admin/projects' },
+    { label: 'Posts', value: counts.posts, href: '/admin/posts' },
     {
       label: 'New inquiries',
       value: counts.newInquiries,

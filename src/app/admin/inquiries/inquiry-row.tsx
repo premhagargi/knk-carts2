@@ -1,8 +1,11 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
-import { markInquiryStatus } from '@/app/actions/inquiries';
+import { api } from '@/lib/api-client';
+
+type InquiryStatus = 'new' | 'read' | 'archived';
 
 type Inquiry = {
   id: string;
@@ -11,28 +14,31 @@ type Inquiry = {
   company: string | null;
   inquiry_type: string | null;
   message: string;
-  status: 'new' | 'read' | 'archived';
+  status: InquiryStatus;
   created_at: string;
 };
 
-const statusStyles: Record<Inquiry['status'], string> = {
+const statusStyles: Record<InquiryStatus, string> = {
   new: 'bg-primary text-white',
   read: 'bg-admin-surface-2 text-admin-muted',
   archived: 'bg-admin-bg text-admin-muted/60 border border-admin-border',
 };
 
 export default function InquiryRow({ inquiry }: { inquiry: Inquiry }) {
+  const router = useRouter();
   const [open, setOpen] = useState(inquiry.status === 'new');
-  const [status, setStatus] = useState(inquiry.status);
+  const [status, setStatus] = useState<InquiryStatus>(inquiry.status);
   const [isPending, startTransition] = useTransition();
 
-  const setStatusOptimistic = (next: Inquiry['status']) => {
+  const setStatusOptimistic = (next: InquiryStatus) => {
+    const prev = status;
     setStatus(next);
     startTransition(async () => {
       try {
-        await markInquiryStatus(inquiry.id, next);
+        await api.patch(`/api/inquiries/${inquiry.id}`, { status: next });
+        router.refresh();
       } catch {
-        setStatus(inquiry.status);
+        setStatus(prev);
       }
     });
   };

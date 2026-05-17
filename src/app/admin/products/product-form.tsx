@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { createProduct, updateProduct } from '@/app/actions/products';
+import { api } from '@/lib/api-client';
 import { Field, inputClass, textareaClass } from '@/components/admin/admin-ui';
 import ImageField, { type ImageAsset } from '@/components/admin/image-field';
 import { slugify } from '@/lib/slug';
@@ -28,29 +28,70 @@ const categories = [
   { value: 'junior', label: 'Junior' },
 ];
 
-export default function ProductForm({
-  product,
-}: {
-  product?: ProductRecord;
-}) {
+export default function ProductForm({ product }: { product?: ProductRecord }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [name, setName] = useState(product?.name ?? '');
   const [slug, setSlug] = useState(product?.slug ?? '');
   const [slugTouched, setSlugTouched] = useState(!!product);
-
   const isEdit = !!product;
 
   return (
     <form
-      action={(formData) => {
+      onSubmit={(e) => {
+        e.preventDefault();
         setError(null);
+        const fd = new FormData(e.currentTarget);
+
+        let specs: Record<string, unknown> = {};
+        const specsRaw = String(fd.get('specs') ?? '').trim();
+        if (specsRaw) {
+          try {
+            specs = JSON.parse(specsRaw);
+          } catch {
+            setError('Specs must be valid JSON.');
+            return;
+          }
+        }
+
+        const imagesRaw = String(fd.get('images') ?? '').trim();
+        let images: ImageAsset[] = [];
+        if (imagesRaw) {
+          try {
+            images = JSON.parse(imagesRaw);
+          } catch {
+            setError('Images payload is malformed.');
+            return;
+          }
+        }
+
+        const priceRaw = String(fd.get('price_inr') ?? '').trim();
+
+        const payload = {
+          name: String(fd.get('name') ?? ''),
+          slug: String(fd.get('slug') ?? ''),
+          category: String(fd.get('category') ?? ''),
+          short_description: String(fd.get('short_description') ?? ''),
+          description: String(fd.get('description') ?? ''),
+          specs,
+          price_inr: priceRaw ? Number(priceRaw) : null,
+          featured: fd.get('featured') === 'on',
+          images,
+        };
+
         startTransition(async () => {
-          const res = isEdit
-            ? await updateProduct(product!.id, formData)
-            : await createProduct(formData);
-          if (res && 'ok' in res && !res.ok) setError(res.error);
+          try {
+            if (isEdit) {
+              await api.patch(`/api/products/${product!.id}`, payload);
+            } else {
+              await api.post('/api/products', payload);
+            }
+            router.push('/admin/products');
+            router.refresh();
+          } catch (err) {
+            setError(err instanceof Error ? err.message : 'Unknown error');
+          }
         });
       }}
       className="space-y-8 max-w-3xl"
@@ -88,9 +129,7 @@ export default function ProductForm({
           defaultValue={product?.category ?? ''}
           className={inputClass + ' appearance-none'}
         >
-          <option value="" className="bg-admin-bg">
-            Choose…
-          </option>
+          <option value="" className="bg-admin-bg">Choose…</option>
           {categories.map((c) => (
             <option key={c.value} value={c.value} className="bg-admin-bg">
               {c.label}
@@ -169,11 +208,7 @@ export default function ProductForm({
           disabled={isPending}
           className="bg-primary text-white py-4 px-8 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all disabled:opacity-50"
         >
-          {isPending
-            ? 'Saving…'
-            : isEdit
-              ? 'Save changes'
-              : 'Create product'}
+          {isPending ? 'Saving…' : isEdit ? 'Save changes' : 'Create product'}
         </button>
         <button
           type="button"

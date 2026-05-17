@@ -1,7 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { DeleteButton, EditLink } from '@/components/admin/admin-ui';
-import { deleteService } from '@/app/actions/services';
+import { api } from '@/lib/api-client';
 
 type Service = {
   id: string;
@@ -11,6 +12,7 @@ type Service = {
 };
 
 export default function ServiceRow({ service }: { service: Service }) {
+  const router = useRouter();
   return (
     <div className="grid grid-cols-12 gap-4 p-4 border-b border-admin-border items-center text-sm last:border-b-0 hover:bg-admin-surface-2">
       <div className="col-span-5 font-bold">{service.name}</div>
@@ -22,7 +24,12 @@ export default function ServiceRow({ service }: { service: Service }) {
       </div>
       <div className="col-span-2 flex justify-end items-center gap-4">
         <EditLink href={`/admin/services/${service.id}`} />
-        <DeleteButton onConfirm={async () => deleteService(service.id)} />
+        <DeleteButton
+          onConfirm={async () => {
+            await api.del(`/api/services/${service.id}`);
+            router.refresh();
+          }}
+        />
       </div>
     </div>
   );

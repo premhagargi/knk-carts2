@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { submitInquiry } from '@/app/actions/inquiries';
 import { useToast } from '@/hooks/use-toast';
+import { api } from '@/lib/api-client';
 
 export default function ContactForm() {
   const [isPending, startTransition] = useTransition();
@@ -11,24 +11,34 @@ export default function ContactForm() {
 
   return (
     <form
-      action={(formData) =>
+      onSubmit={(e) => {
+        e.preventDefault();
+        const fd = new FormData(e.currentTarget);
+        const payload = {
+          name: fd.get('name'),
+          email: fd.get('email'),
+          company: fd.get('company'),
+          inquiry_type: fd.get('inquiry_type'),
+          message: fd.get('message'),
+        };
         startTransition(async () => {
-          const res = await submitInquiry(formData);
-          if (res.ok) {
+          try {
+            await api.post('/api/inquiries', payload);
             setSubmitted(true);
             toast({
               title: 'Inquiry sent',
               description: 'We’ll respond within two working days.',
             });
-          } else {
+          } catch (err) {
             toast({
               title: 'Could not send inquiry',
-              description: res.error ?? 'Please try again.',
+              description:
+                err instanceof Error ? err.message : 'Please try again.',
               variant: 'destructive',
             });
           }
-        })
-      }
+        });
+      }}
       className="space-y-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -58,24 +68,12 @@ export default function ContactForm() {
         defaultValue=""
         className="bg-transparent border border-white/10 p-6 text-[10px] tracking-widest font-bold focus:border-primary outline-none w-full appearance-none"
       >
-        <option value="" className="bg-black">
-          INQUIRY TYPE
-        </option>
-        <option value="design" className="bg-black">
-          KART DESIGN
-        </option>
-        <option value="track" className="bg-black">
-          TRACK SOLUTIONS
-        </option>
-        <option value="rental" className="bg-black">
-          RENTAL PROGRAM
-        </option>
-        <option value="spares" className="bg-black">
-          SPARES & SUPPORT
-        </option>
-        <option value="consultancy" className="bg-black">
-          CONSULTANCY
-        </option>
+        <option value="" className="bg-black">INQUIRY TYPE</option>
+        <option value="design" className="bg-black">KART DESIGN</option>
+        <option value="track" className="bg-black">TRACK SOLUTIONS</option>
+        <option value="rental" className="bg-black">RENTAL PROGRAM</option>
+        <option value="spares" className="bg-black">SPARES & SUPPORT</option>
+        <option value="consultancy" className="bg-black">CONSULTANCY</option>
       </select>
       <textarea
         name="message"
@@ -85,6 +83,7 @@ export default function ContactForm() {
         className="bg-transparent border border-white/10 p-6 text-[10px] tracking-widest font-bold focus:border-primary outline-none w-full"
       />
       <button
+        type="submit"
         disabled={isPending || submitted}
         className="bg-primary text-white py-6 px-12 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all w-full disabled:opacity-50"
       >

@@ -1,7 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { DeleteButton, EditLink } from '@/components/admin/admin-ui';
-import { deleteProduct } from '@/app/actions/products';
+import { api } from '@/lib/api-client';
 
 type Product = {
   id: string;
@@ -13,6 +14,7 @@ type Product = {
 };
 
 export default function ProductRow({ product }: { product: Product }) {
+  const router = useRouter();
   return (
     <div className="grid grid-cols-12 gap-4 p-4 border-b border-admin-border items-center text-sm last:border-b-0 hover:bg-admin-surface-2">
       <div className="col-span-4 flex items-center gap-3">
@@ -32,7 +34,12 @@ export default function ProductRow({ product }: { product: Product }) {
       </div>
       <div className="col-span-2 flex justify-end items-center gap-4">
         <EditLink href={`/admin/products/${product.id}`} />
-        <DeleteButton onConfirm={async () => deleteProduct(product.id)} />
+        <DeleteButton
+          onConfirm={async () => {
+            await api.del(`/api/products/${product.id}`);
+            router.refresh();
+          }}
+        />
       </div>
     </div>
   );
