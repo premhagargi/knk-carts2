@@ -2,8 +2,25 @@ import Link from 'next/link';
 import PageHeader from '@/components/sections/page-header';
 import Ecosystem from '@/components/sections/ecosystem';
 import Footer from '@/components/sections/footer';
-import { services } from '@/lib/vcr-content';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { ArrowRight } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
+
+type Service = {
+  slug: string;
+  name: string;
+  short_description: string | null;
+};
+
+async function getServices(): Promise<Service[]> {
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase
+    .from('services')
+    .select('slug, name, short_description')
+    .order('created_at', { ascending: true });
+  return (data ?? []) as Service[];
+}
 
 export const metadata = {
   title: 'Track Solutions | VCR Design',
@@ -11,7 +28,9 @@ export const metadata = {
     'Track design, safety barriers, lifting systems, lighting, drainage, consultancy, and rental support.',
 };
 
-export default function SolutionsPage() {
+export default async function SolutionsPage() {
+  const services = await getServices();
+
   return (
     <>
       <PageHeader
@@ -36,7 +55,7 @@ export default function SolutionsPage() {
                 {s.name}
               </h2>
               <p className="text-sm text-white/60 font-light leading-relaxed flex-1">
-                {s.shortDescription}
+                {s.short_description}
               </p>
               <span className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold group-hover:text-primary transition-colors">
                 View detail <ArrowRight className="w-4 h-4" />

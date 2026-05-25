@@ -2,36 +2,61 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { products } from '@/lib/vcr-content';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { ArrowRight } from 'lucide-react';
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+export const dynamic = 'force-dynamic';
+
+type Product = {
+  slug: string;
+  name: string;
+  category: string;
+  short_description: string | null;
+  description: string | null;
+  specs: Record<string, string> | null;
+};
+
+async function getProduct(slug: string): Promise<Product | null> {
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase
+    .from('products')
+    .select('slug, name, category, short_description, description, specs')
+    .eq('slug', slug)
+    .maybeSingle();
+  return (data as Product | null) ?? null;
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const product = products.find((p) => p.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) return {};
   return {
     title: `${product.name} | VCR Design`,
-    description: product.shortDescription,
+    description: product.short_description ?? undefined,
   };
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const product = products.find((p) => p.slug === params.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) notFound();
+
+  const specs = product.specs ?? {};
 
   return (
     <>
       <PageHeader
         eyebrow={product.category.replace('-', ' ')}
         title={product.name}
-        description={product.shortDescription}
+        description={product.short_description ?? undefined}
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Products', href: '/products' },
@@ -54,7 +79,7 @@ export default function ProductDetailPage({
                 SPECIFICATIONS
               </h2>
               <div className="border-t border-l border-white/10">
-                {Object.entries(product.specs).map(([k, v]) => (
+                {Object.entries(specs).map(([k, v]) => (
                   <div
                     key={k}
                     className="grid grid-cols-2 border-r border-b border-white/10"

@@ -194,6 +194,8 @@ export default function ProductForm({ product }: { product?: ProductRecord }) {
         entity="products"
         defaultValue={product?.images ?? []}
         label="Gallery"
+        hint="Square 1:1 — recommended 1200×1200px. Shown in product cards and the detail gallery."
+        previewAspect="aspect-square"
       />
 
       {error && (

@@ -10,10 +10,16 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Auth is enforced in middleware (src/lib/supabase/middleware.ts), which
+  // validates the token with getUser() on every /admin request. Here we only
+  // need the email to render the shell, so we read the session from the cookie
+  // locally — getSession() avoids a second network round-trip to the auth
+  // server on every admin page load.
   const supabase = await createServerSupabaseClient();
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user ?? null;
 
   // /admin/login renders without the shell.
   if (!user) {

@@ -2,33 +2,57 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { services } from '@/lib/vcr-content';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { ArrowRight, Check } from 'lucide-react';
 
-export function generateStaticParams() {
-  return services.map((s) => ({ slug: s.slug }));
+export const dynamic = 'force-dynamic';
+
+type Service = {
+  slug: string;
+  name: string;
+  short_description: string | null;
+  description: string | null;
+  features: string[] | null;
+};
+
+async function getService(slug: string): Promise<Service | null> {
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase
+    .from('services')
+    .select('slug, name, short_description, description, features')
+    .eq('slug', slug)
+    .maybeSingle();
+  return (data as Service | null) ?? null;
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const s = services.find((x) => x.slug === params.slug);
-  if (!s) return {};
-  return { title: `${s.name} | VCR Design`, description: s.shortDescription };
-}
-
-export default function ServiceDetailPage({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const s = services.find((x) => x.slug === params.slug);
+  const { slug } = await params;
+  const s = await getService(slug);
+  if (!s) return {};
+  return { title: `${s.name} | VCR Design`, description: s.short_description ?? undefined };
+}
+
+export default async function ServiceDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const s = await getService(slug);
   if (!s) notFound();
+
+  const features = s.features ?? [];
 
   return (
     <>
       <PageHeader
         eyebrow="Track Solution"
         title={s.name}
-        description={s.shortDescription}
+        description={s.short_description ?? undefined}
         crumbs={[
           { label: 'Home', href: '/' },
           { label: 'Solutions', href: '/solutions' },
@@ -51,7 +75,7 @@ export default function ServiceDetailPage({
                 DELIVERABLES
               </h2>
               <ul className="space-y-4">
-                {s.features.map((f) => (
+                {features.map((f) => (
                   <li key={f} className="flex items-start gap-4 text-lg text-white/80 font-light">
                     <Check className="w-5 h-5 text-primary mt-1.5 shrink-0" />
                     <span>{f}</span>

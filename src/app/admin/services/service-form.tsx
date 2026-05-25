@@ -146,6 +146,8 @@ export default function ServiceForm({ service }: { service?: ServiceRecord }) {
         multiple={false}
         defaultValue={service?.hero_image ? [service.hero_image] : []}
         label="Hero image"
+        hint="Widescreen 16:9 — recommended 1600×900px (min 1280×720). Used as the service banner."
+        previewAspect="aspect-[16/9]"
       />
 
       <ImageField
@@ -153,6 +155,8 @@ export default function ServiceForm({ service }: { service?: ServiceRecord }) {
         entity="services"
         defaultValue={service?.gallery ?? []}
         label="Gallery"
+        hint="Square 1:1 — recommended 1200×1200px. Displayed in a uniform grid."
+        previewAspect="aspect-square"
       />
 
       {error && (

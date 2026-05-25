@@ -19,6 +19,11 @@ type Props = {
   multiple?: boolean;
   defaultValue?: ImageAsset[];
   label?: string;
+  /** Guidance shown under the label, e.g. recommended dimensions/aspect ratio. */
+  hint?: string;
+  /** Tailwind aspect-ratio class for the preview tiles, e.g. 'aspect-[16/9]'.
+   *  Shape the previews to match where the image is displayed. */
+  previewAspect?: string;
 };
 
 // Renders a hidden <input name={name}> carrying the JSON-encoded array of
@@ -29,6 +34,8 @@ export default function ImageField({
   multiple = true,
   defaultValue = [],
   label = 'Images',
+  hint,
+  previewAspect = 'aspect-square',
 }: Props) {
   const [assets, setAssets] = useState<ImageAsset[]>(defaultValue);
 
@@ -38,6 +45,8 @@ export default function ImageField({
         {label}
       </label>
 
+      {hint && <p className="text-xs text-admin-muted -mt-1">{hint}</p>}
+
       <input type="hidden" name={name} value={JSON.stringify(assets)} />
 
       {assets.length > 0 && (
@@ -45,7 +54,7 @@ export default function ImageField({
           {assets.map((a) => (
             <div
               key={a.public_id}
-              className="relative aspect-square bg-admin-bg border border-admin-border group"
+              className={`relative ${previewAspect} bg-admin-bg border border-admin-border group`}
             >
               <Image
                 src={a.secure_url}

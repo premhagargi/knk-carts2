@@ -156,6 +156,8 @@ export default function ProjectForm({ project }: { project?: ProjectRecord }) {
         entity="projects"
         defaultValue={project?.images ?? []}
         label="Gallery"
+        hint="Landscape 4:3 — recommended 1600×1200px. Shown in project case-study cards."
+        previewAspect="aspect-[4/3]"
       />
 
       {error && (

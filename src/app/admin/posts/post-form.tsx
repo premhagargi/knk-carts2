@@ -160,6 +160,8 @@ export default function PostForm({ post }: { post?: PostRecord }) {
         multiple={false}
         defaultValue={post?.cover_image ? [post.cover_image] : []}
         label="Cover image"
+        hint="Widescreen 16:9 — recommended 1600×900px (min 1280×720). Shown full-width at the top of the post."
+        previewAspect="aspect-[16/9]"
       />
 
       <Field label="Featured">

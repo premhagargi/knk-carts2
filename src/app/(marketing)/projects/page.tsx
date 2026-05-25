@@ -1,14 +1,37 @@
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { projects, stats } from '@/lib/vcr-content';
+import { stats } from '@/lib/vcr-content';
+import { createServerSupabaseClient } from '@/lib/supabase/server';
 import Marquee from '@/components/sections/marquee';
+
+export const dynamic = 'force-dynamic';
+
+type Project = {
+  slug: string;
+  title: string;
+  client: string | null;
+  location: string | null;
+  year: number | null;
+  description: string | null;
+};
+
+async function getProjects(): Promise<Project[]> {
+  const supabase = await createServerSupabaseClient();
+  const { data } = await supabase
+    .from('projects')
+    .select('slug, title, client, location, year, description')
+    .order('year', { ascending: false });
+  return (data ?? []) as Project[];
+}
 
 export const metadata = {
   title: 'Projects | VCR Design',
   description: 'Selected circuit and fleet projects from VCR + KnK Karts.',
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <>
       <PageHeader
