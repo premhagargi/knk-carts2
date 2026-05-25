@@ -1,10 +1,10 @@
+import { unstable_cache } from 'next/cache';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
 import { stats } from '@/lib/vcr-content';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createPublicSupabaseClient } from '@/lib/supabase/public';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 import Marquee from '@/components/sections/marquee';
-
-export const dynamic = 'force-dynamic';
 
 type Project = {
   slug: string;
@@ -15,14 +15,18 @@ type Project = {
   description: string | null;
 };
 
-async function getProjects(): Promise<Project[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('projects')
-    .select('slug, title, client, location, year, description')
-    .order('year', { ascending: false });
-  return (data ?? []) as Project[];
-}
+const getProjects = unstable_cache(
+  async (): Promise<Project[]> => {
+    const supabase = createPublicSupabaseClient();
+    const { data } = await supabase
+      .from('projects')
+      .select('slug, title, client, location, year, description')
+      .order('year', { ascending: false });
+    return (data ?? []) as Project[];
+  },
+  ['marketing:projects:list'],
+  { tags: [CACHE_TAGS.projects] },
+);
 
 export const metadata = {
   title: 'Projects | VCR Design',

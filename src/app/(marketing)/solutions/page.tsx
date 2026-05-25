@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import { unstable_cache } from 'next/cache';
 import PageHeader from '@/components/sections/page-header';
 import Ecosystem from '@/components/sections/ecosystem';
 import Footer from '@/components/sections/footer';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createPublicSupabaseClient } from '@/lib/supabase/public';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 import { ArrowRight } from 'lucide-react';
-
-export const dynamic = 'force-dynamic';
 
 type Service = {
   slug: string;
@@ -13,14 +13,18 @@ type Service = {
   short_description: string | null;
 };
 
-async function getServices(): Promise<Service[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('services')
-    .select('slug, name, short_description')
-    .order('created_at', { ascending: true });
-  return (data ?? []) as Service[];
-}
+const getServices = unstable_cache(
+  async (): Promise<Service[]> => {
+    const supabase = createPublicSupabaseClient();
+    const { data } = await supabase
+      .from('services')
+      .select('slug, name, short_description')
+      .order('created_at', { ascending: true });
+    return (data ?? []) as Service[];
+  },
+  ['marketing:services:list'],
+  { tags: [CACHE_TAGS.services] },
+);
 
 export const metadata = {
   title: 'Track Solutions | VCR Design',

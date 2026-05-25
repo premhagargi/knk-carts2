@@ -1,6 +1,8 @@
 import { type NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { jsonErr, jsonOk, parseJson, requireAdmin } from '@/lib/api-auth';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 import { parseServiceInput } from '@/lib/validators';
 
 export const dynamic = 'force-dynamic';
@@ -33,6 +35,7 @@ export async function PATCH(req: NextRequest, { params }: Ctx) {
     .select('*')
     .single();
   if (error) return jsonErr(error.message, 400);
+  revalidateTag(CACHE_TAGS.services);
   return jsonOk(data);
 }
 
@@ -42,5 +45,6 @@ export async function DELETE(_req: NextRequest, { params }: Ctx) {
   if ('response' in auth) return auth.response;
   const { error } = await auth.supabase.from('services').delete().eq('id', id);
   if (error) return jsonErr(error.message, 400);
+  revalidateTag(CACHE_TAGS.services);
   return new Response(null, { status: 204 });
 }

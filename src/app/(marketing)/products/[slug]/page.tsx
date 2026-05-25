@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { unstable_cache } from 'next/cache';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createPublicSupabaseClient } from '@/lib/supabase/public';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 import { ArrowRight } from 'lucide-react';
-
-export const dynamic = 'force-dynamic';
 
 type Product = {
   slug: string;
@@ -16,15 +16,19 @@ type Product = {
   specs: Record<string, string> | null;
 };
 
-async function getProduct(slug: string): Promise<Product | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('products')
-    .select('slug, name, category, short_description, description, specs')
-    .eq('slug', slug)
-    .maybeSingle();
-  return (data as Product | null) ?? null;
-}
+const getProduct = unstable_cache(
+  async (slug: string): Promise<Product | null> => {
+    const supabase = createPublicSupabaseClient();
+    const { data } = await supabase
+      .from('products')
+      .select('slug, name, category, short_description, description, specs')
+      .eq('slug', slug)
+      .maybeSingle();
+    return (data as Product | null) ?? null;
+  },
+  ['marketing:products:detail'],
+  { tags: [CACHE_TAGS.products] },
+);
 
 export async function generateMetadata({
   params,

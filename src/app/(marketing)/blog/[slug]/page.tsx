@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import { unstable_cache } from 'next/cache';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-
-export const dynamic = 'force-dynamic';
+import { createPublicSupabaseClient } from '@/lib/supabase/public';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 
 type Post = {
   slug: string;
@@ -20,17 +20,23 @@ type Post = {
   published_at: string;
 };
 
-async function getPost(slug: string): Promise<Post | null> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('posts')
-    .select('slug, title, excerpt, body, author, cover_image, published_at')
-    .eq('slug', slug)
-    .not('published_at', 'is', null)
-    .lte('published_at', new Date().toISOString())
-    .maybeSingle();
-  return (data as Post | null) ?? null;
-}
+const getPost = unstable_cache(
+  async (slug: string): Promise<Post | null> => {
+    const supabase = createPublicSupabaseClient();
+    const { data } = await supabase
+      .from('posts')
+      .select('slug, title, excerpt, body, author, cover_image, published_at')
+      .eq('slug', slug)
+      .not('published_at', 'is', null)
+      .lte('published_at', new Date().toISOString())
+      .maybeSingle();
+    return (data as Post | null) ?? null;
+  },
+  ['marketing:posts:detail'],
+  // See blog list: time-based fallback for scheduled posts + tag for instant
+  // admin-edit revalidation.
+  { tags: [CACHE_TAGS.posts], revalidate: 300 },
+);
 
 export async function generateMetadata({
   params,

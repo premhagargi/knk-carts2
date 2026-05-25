@@ -1,9 +1,9 @@
 import Link from 'next/link';
+import { unstable_cache } from 'next/cache';
 import PageHeader from '@/components/sections/page-header';
 import Footer from '@/components/sections/footer';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-
-export const dynamic = 'force-dynamic';
+import { createPublicSupabaseClient } from '@/lib/supabase/public';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 
 type Post = {
   slug: string;
@@ -13,16 +13,22 @@ type Post = {
   published_at: string;
 };
 
-async function getPosts(): Promise<Post[]> {
-  const supabase = await createServerSupabaseClient();
-  const { data } = await supabase
-    .from('posts')
-    .select('slug, title, excerpt, author, published_at')
-    .not('published_at', 'is', null)
-    .lte('published_at', new Date().toISOString())
-    .order('published_at', { ascending: false });
-  return (data ?? []) as Post[];
-}
+const getPosts = unstable_cache(
+  async (): Promise<Post[]> => {
+    const supabase = createPublicSupabaseClient();
+    const { data } = await supabase
+      .from('posts')
+      .select('slug, title, excerpt, author, published_at')
+      .not('published_at', 'is', null)
+      .lte('published_at', new Date().toISOString())
+      .order('published_at', { ascending: false });
+    return (data ?? []) as Post[];
+  },
+  ['marketing:posts:list'],
+  // Time-based fallback so future-scheduled posts go live without an admin
+  // write; admin edits still revalidate instantly via the posts tag.
+  { tags: [CACHE_TAGS.posts], revalidate: 300 },
+);
 
 export const metadata = {
   title: 'Journal | VCR Design',

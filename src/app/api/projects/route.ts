@@ -1,6 +1,8 @@
 import { type NextRequest } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { jsonErr, jsonOk, parseJson, requireAdmin } from '@/lib/api-auth';
+import { CACHE_TAGS } from '@/lib/cache-tags';
 import { parseProjectInput } from '@/lib/validators';
 
 export const dynamic = 'force-dynamic';
@@ -30,5 +32,6 @@ export async function POST(req: NextRequest) {
     .select('*')
     .single();
   if (error) return jsonErr(error.message, 400);
+  revalidateTag(CACHE_TAGS.projects);
   return jsonOk(data, { status: 201 });
 }
