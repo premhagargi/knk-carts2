@@ -68,12 +68,12 @@ export default function ContactForm() {
         defaultValue=""
         className="bg-transparent border border-white/10 p-6 text-[10px] tracking-widest font-bold focus:border-primary outline-none w-full appearance-none"
       >
-        <option value="" className="bg-black">INQUIRY TYPE</option>
-        <option value="design" className="bg-black">KART DESIGN</option>
-        <option value="track" className="bg-black">TRACK SOLUTIONS</option>
-        <option value="rental" className="bg-black">RENTAL PROGRAM</option>
-        <option value="spares" className="bg-black">SPARES & SUPPORT</option>
-        <option value="consultancy" className="bg-black">CONSULTANCY</option>
+        <option value="" className="bg-brand-charcoal">INQUIRY TYPE</option>
+        <option value="design" className="bg-brand-charcoal">KART DESIGN</option>
+        <option value="track" className="bg-brand-charcoal">TRACK SOLUTIONS</option>
+        <option value="rental" className="bg-brand-charcoal">RENTAL PROGRAM</option>
+        <option value="spares" className="bg-brand-charcoal">SPARES & SUPPORT</option>
+        <option value="consultancy" className="bg-brand-charcoal">CONSULTANCY</option>
       </select>
       <textarea
         name="message"
@@ -85,7 +85,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={isPending || submitted}
-        className="bg-primary text-white py-6 px-12 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all w-full disabled:opacity-50"
+        className="bg-primary text-white py-6 px-12 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-brand-charcoal transition-all w-full disabled:opacity-50"
       >
         {submitted ? 'SENT' : isPending ? 'SENDING…' : 'SUBMIT REQUEST'}
       </button>

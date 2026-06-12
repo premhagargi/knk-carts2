@@ -1,26 +1,29 @@
 # VCR Design System
 
-This document formalizes the existing visual language of the VCR site. **Nothing here changes how the public site currently looks** — it documents the tokens and rules that already exist in `src/app/globals.css` and `tailwind.config.ts`, and adds a small set of additional tokens for the admin panel.
+This document formalizes the visual language of the VCR site. The public marketing palette is blue-led and based on the VCR brand colors defined in `src/app/globals.css` and `tailwind.config.ts`.
 
 ## 1. Tokens (HSL CSS vars, defined in `globals.css`)
 
-### Public site (do not change values)
+### Public site
 
 | Token                  | Value           | Where used                                                   |
 | ---------------------- | --------------- | ------------------------------------------------------------ |
-| `--background`         | `0 0% 0%`       | Page background (pure black)                                 |
+| `--background`         | `210 2% 18%`    | Brand charcoal `#2E2F30`, primary page background            |
 | `--foreground`         | `0 0% 100%`     | Default text                                                 |
-| `--card`               | `0 0% 0%`       | Card surface (same as background by design)                  |
-| `--popover`            | `0 0% 5%`       | Popovers, dropdown surfaces                                  |
-| `--primary`            | `0 84% 56%`     | Brand red `#FC2121` — CTAs, accents, marquee, link hovers    |
-| `--secondary`/`--accent` | `212 100% 54%` | Brand blue `#128EFF` — engineering/blueprint accent          |
-| `--muted`              | `0 0% 15%`      | Muted surface                                                |
-| `--muted-foreground`   | `0 0% 65%`      | Secondary text                                               |
-| `--destructive`        | `0 84% 60%`     | Destructive actions                                          |
-| `--border`             | `0 0% 20%`      | Borders                                                      |
-| `--input`              | `0 0% 20%`      | Form fields                                                  |
-| `--ring`               | `212 100% 54%`  | Focus ring (blue)                                            |
+| `--card`               | `210 2% 18%`    | Card surface (same as background by design)                  |
+| `--popover`            | `200 3% 14%`    | Popovers, dropdown surfaces                                  |
+| `--primary`            | `197 97% 45%`   | Main brand blue `#04A3E3` — CTAs, accents, marquee, link hovers |
+| `--secondary`          | `198 88% 38%`   | Deep blue `#0C7CB4` — supporting blue surfaces and controls  |
+| `--accent`             | `199 83% 56%`   | Bright blue `#34B4EC` — highlights and blueprint moments     |
+| `--muted`              | `200 3% 40%`    | Steel gray `#626668`, muted surface                          |
+| `--muted-foreground`   | `0 37% 78%`     | Warm pale `#DBB4B4`, secondary text                          |
+| `--destructive`        | `359 68% 47%`   | Signal red `#CA2629`, warning/destructive contrast only      |
+| `--border`             | `200 3% 40%`    | Borders                                                      |
+| `--input`              | `200 3% 40%`    | Form fields                                                  |
+| `--ring`               | `197 97% 45%`   | Focus ring                                                   |
 | `--radius`             | `0rem`          | **Zero-radius is global and enforced** (`* { border-radius: 0 !important }`) |
+
+Tailwind also exposes exact brand colors as `brand.blush`, `brand.charcoal`, `brand.sky`, `brand.red`, `brand.steel`, `brand.cyan`, `brand.slate`, `brand.ocean`, and `brand.deep`.
 
 ### Admin panel (additional, scoped to `/admin/**`)
 
@@ -50,8 +53,8 @@ Every element renders with `border-radius: 0`. This is enforced both via `--radi
 
 The site uses raw HTML buttons (not the `<Button>` shadcn primitive) for marketing CTAs. Established variants:
 
-- **Solid red CTA**: `bg-primary text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all`
-- **Outline CTA**: `border border-white/20 text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all`
+- **Solid blue CTA**: `bg-primary text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all`
+- **Outline CTA**: `border border-white/20 text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all`
 - **Nav link**: `text-[10px] uppercase tracking-widest font-semibold hover:text-primary transition-colors`
 
 For the **admin panel**, prefer the existing shadcn `<Button>` primitive — variants `default`, `outline`, `ghost`, `destructive` are sufficient; do not invent new ones.
@@ -90,8 +93,8 @@ Reuse this pattern on every new marketing route.
 
 ## 9. Custom utility classes (in `globals.css`)
 
-- `.grid-overlay` — faint blue grid backdrop (hero).
-- `.blueprint-grid` — wider white grid backdrop (blueprint section).
+- `.grid-overlay` — faint `#04A3E3` grid backdrop (hero).
+- `.blueprint-grid` — wider `#34B4EC` grid backdrop (blueprint section).
 - `.no-scrollbar` — used on horizontal product carousel.
 - Custom scrollbar styling targets `::-webkit-scrollbar` with primary red on hover.
 

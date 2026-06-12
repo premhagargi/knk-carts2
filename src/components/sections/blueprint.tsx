@@ -8,7 +8,7 @@ export default function Blueprint() {
   const bg = PlaceHolderImages.find(img => img.id === 'blueprint-bg')
 
   return (
-    <section id="engineering" className="relative py-48 overflow-hidden bg-black">
+    <section id="engineering" className="relative py-48 overflow-hidden bg-brand-charcoal">
       <div className="absolute inset-0 blueprint-grid z-0 opacity-20" />
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] z-0 pointer-events-none opacity-30">
@@ -31,7 +31,7 @@ export default function Blueprint() {
           >
             <h2 className="text-xs font-bold tracking-[0.8em] uppercase text-primary mb-12">DESIGN LEADERSHIP</h2>
             <p className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tightest leading-[0.9] mb-12">
-              VISION <br /> <span className="text-blue-500">REALIZED.</span>
+              VISION <br /> <span className="text-brand-cyan">REALIZED.</span>
             </p>
           </motion.div>
 

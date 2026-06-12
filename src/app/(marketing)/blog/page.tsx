@@ -48,7 +48,7 @@ export default async function BlogPage() {
             <span className="text-primary italic">ENGINEERING TALK.</span>
           </>
         }
-        description="Long-form notes from the VCR studio and the KnK factory floor."
+        description="Long-form notes from the VCR studio, engineering programs, and selected partner production work."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Journal' }]}
       />
       <section className="py-20">

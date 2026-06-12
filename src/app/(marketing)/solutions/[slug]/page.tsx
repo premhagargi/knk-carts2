@@ -98,7 +98,7 @@ export default async function ServiceDetailPage({
               </p>
               <Link
                 href={`/contact?service=${s.slug}`}
-                className="flex items-center gap-3 bg-primary text-white px-6 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-black transition-all"
+                className="flex items-center gap-3 bg-primary text-white px-6 py-4 text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-brand-charcoal transition-all"
               >
                 Start Inquiry <ArrowRight className="w-4 h-4" />
               </Link>

@@ -10,7 +10,7 @@ export default function Marquee() {
   ]
 
   return (
-    <div className="bg-primary py-10 overflow-hidden relative border-y-4 border-black">
+    <div className="bg-primary py-10 overflow-hidden relative border-y-4 border-brand-charcoal">
       <div className="flex whitespace-nowrap">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
@@ -19,10 +19,10 @@ export default function Marquee() {
         >
           {[...items, ...items].map((country, idx) => (
             <div key={idx} className="flex items-center gap-10">
-              <span className="text-4xl md:text-6xl font-black uppercase tracking-tightest text-black italic">
+              <span className="text-4xl md:text-6xl font-black uppercase tracking-tightest text-brand-charcoal italic">
                 {country}
               </span>
-              <div className="w-4 h-4 bg-black rotate-45" />
+              <div className="w-4 h-4 bg-brand-charcoal rotate-45" />
             </div>
           ))}
         </motion.div>

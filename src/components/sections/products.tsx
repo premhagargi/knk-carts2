@@ -11,21 +11,21 @@ const products = [
     subtitle: "Recreational Design",
     desc: "VCR-patented chassis geometry optimized for commercial durability and low maintenance cycles.",
     image: PlaceHolderImages.find(img => img.id === 'recreational-kart')?.imageUrl || '',
-    color: "from-blue-900/40"
+    color: "from-brand-deep/55"
   },
   {
     title: "C-REALITY",
     subtitle: "Competition Design",
     desc: "Unorthodox engineering approaches that redefine race-day performance and driver feedback.",
     image: PlaceHolderImages.find(img => img.id === 'race-kart')?.imageUrl || '',
-    color: "from-red-900/40"
+    color: "from-brand-red/45"
   },
   {
     title: "R-TERRAIN",
     subtitle: "Off-Road Engineering",
     desc: "Specialized buggy concepts designed for extreme environments with VCR's signature precision.",
     image: PlaceHolderImages.find(img => img.id === 'off-road-buggy')?.imageUrl || '',
-    color: "from-gray-900/40"
+    color: "from-brand-steel/50"
   }
 ]
 
@@ -34,7 +34,7 @@ export default function Products() {
   const { scrollXProgress } = useScroll({ container: containerRef })
 
   return (
-    <section id="portfolio" className="py-32 bg-black/40">
+    <section id="portfolio" className="py-32 bg-brand-charcoal/40">
       <div className="container mx-auto px-6 mb-20">
         <h2 className="text-xs font-bold tracking-[0.5em] uppercase text-primary mb-4">DESIGN PORTFOLIO</h2>
         <p className="text-4xl md:text-6xl font-black uppercase tracking-tightest">THE VCR LINEUP</p>

@@ -29,7 +29,7 @@ const features = [
 
 export default function Ecosystem() {
   return (
-    <section id="ecosystem" className="py-32 bg-black border-y border-white/5">
+    <section id="ecosystem" className="py-32 bg-brand-charcoal border-y border-white/5">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 mb-20">
           <div className="lg:col-span-1">
@@ -38,7 +38,7 @@ export default function Ecosystem() {
               DESIGN <br /><span className="text-primary italic">AUTHORITY.</span>
             </h3>
             <p className="text-white/60 font-light leading-relaxed max-w-sm uppercase text-xs tracking-widest">
-              VCR holds the design rights and technical expertise that drive KnK Karts' global manufacturing success.
+              VCR holds the design rights and technical expertise behind chassis, circuit, fleet, and operator programs delivered worldwide.
             </p>
           </div>
 
@@ -46,7 +46,7 @@ export default function Ecosystem() {
             {features.map((feature, idx) => (
               <motion.div
                 key={idx}
-                whileHover={{ backgroundColor: "rgba(252, 33, 33, 0.05)" }}
+                whileHover={{ backgroundColor: "rgba(4, 163, 227, 0.06)" }}
                 className="p-12 border-r border-b border-white/10 flex flex-col items-center justify-center gap-6 group cursor-pointer transition-all duration-500"
               >
                 <feature.icon className="w-8 h-8 text-white/20 group-hover:text-primary transition-colors duration-500" />

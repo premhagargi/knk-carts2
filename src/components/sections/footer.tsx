@@ -2,10 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-black pt-32 pb-12 border-t border-white/5">
+    <footer className="bg-brand-charcoal pt-32 pb-12 border-t border-white/5">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-32 mb-32">
           {/* Contact Form Area */}
@@ -37,7 +38,7 @@ export default function Footer() {
                 rows={4}
                 className="bg-transparent border border-white/10 p-6 text-[10px] tracking-widest font-bold focus:border-primary outline-none w-full"
               ></textarea>
-              <button className="bg-primary text-white py-6 px-12 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-all w-full">
+              <button className="bg-primary text-white py-6 px-12 text-xs font-black uppercase tracking-[0.3em] hover:bg-white hover:text-brand-charcoal transition-all w-full">
                 SUBMIT REQUEST
               </button>
             </form>
@@ -65,11 +66,17 @@ export default function Footer() {
             </div>
 
             <div className="mt-32 space-y-4">
-              <h4 className="text-6xl font-black italic tracking-tightest uppercase text-white/5">VCR DESIGN</h4>
+              <Image
+                src="/VCR logo final 190116.png"
+                alt="VCR Design"
+                width={360}
+                height={185}
+                className="h-auto w-56 opacity-20 grayscale"
+              />
               <p className="text-xs text-white/40 font-light tracking-widest uppercase leading-loose">
                 Visions, Concepts & Realities (VCR)<br />
                 Mumbai, Maharashtra, India<br />
-                Associated with KnK Karts (P) Ltd.
+                Design-led motorsport programs with selected manufacturing partners.
               </p>
             </div>
           </div>

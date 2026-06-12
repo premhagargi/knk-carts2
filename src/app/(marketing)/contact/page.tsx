@@ -30,8 +30,8 @@ export default function ContactPage() {
               </h3>
               <p className="text-sm font-light text-white/70 leading-loose">
                 VCR — Visions, Concepts & Realities<br />
-                Belagavi, Karnataka, India<br />
-                In partnership with KnK Karts Pvt Ltd
+                Mumbai, Maharashtra, India<br />
+                Manufacturing coordination in Belagavi, Karnataka
               </p>
             </div>
             <div>

@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
+    --background: 210 2% 18%; /* Brand charcoal #2E2F30 */
     --foreground: 0 0% 100%;
-    --card: 0 0% 0%;
+    --card: 210 2% 18%;
     --card-foreground: 0 0% 100%;
-    --popover: 0 0% 5%;
+    --popover: 200 3% 14%;
     --popover-foreground: 0 0% 100%;
-    --primary: 0 84% 56%; /* Red #FC2121 */
+    --primary: 197 97% 45%; /* Brand blue #04A3E3 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 212 100% 54%; /* Blue #128EFF */
+    --secondary: 198 88% 38%; /* Deep blue #0C7CB4 */
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 212 100% 54%;
+    --muted: 200 3% 40%; /* Steel gray #626668 */
+    --muted-foreground: 0 37% 78%; /* Warm pale #DBB4B4 */
+    --accent: 199 83% 56%; /* Bright blue #34B4EC */
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
+    --destructive: 359 68% 47%; /* Signal red #CA2629 */
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 212 100% 54%;
+    --border: 200 3% 40%;
+    --input: 200 3% 40%;
+    --ring: 197 97% 45%;
     --radius: 0rem;
 
     /* Admin surface palette — used only inside /admin/** */
@@ -72,13 +72,13 @@ html.lenis {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: #2e2f30;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #626668;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FC2121;
+  background: #04a3e3;
 }
 
 /* GSAP animations setup */
@@ -88,14 +88,14 @@ html.lenis {
 
 .grid-overlay {
   background-image: 
-    linear-gradient(to right, rgba(18, 142, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(18, 142, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(4, 163, 227, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(4, 163, 227, 0.08) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 .blueprint-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(52, 180, 236, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(52, 180, 236, 0.08) 1px, transparent 1px);
   background-size: 80px 80px;
 }

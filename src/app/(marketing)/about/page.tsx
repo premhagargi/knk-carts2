@@ -6,7 +6,7 @@ import Footer from '@/components/sections/footer';
 export const metadata = {
   title: 'About VCR | Visions, Concepts & Realities',
   description:
-    'The design authority behind KnK Karts. Founded by Indrajeet and Ishaan Singh, VCR has shaped motorsport engineering for 25 years.',
+    'VCR is an independent motorsport design authority founded by Indrajeet and Ishaan Singh, shaping karting engineering, products, and operator programs for 25 years.',
 };
 
 export default function AboutPage() {
@@ -21,7 +21,7 @@ export default function AboutPage() {
             SINCE 2000.
           </>
         }
-        description="VCR — Visions, Concepts & Realities — is the design-rights holder behind KnK Karts Pvt Ltd. From a Belagavi studio, we shape the chassis, circuits, and operations that power 350+ karting venues globally."
+        description="VCR — Visions, Concepts & Realities — is a motorsport design studio shaping chassis, circuits, fleet systems, and operations for 350+ karting clients globally."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
       />
       <Legacy />
@@ -40,26 +40,26 @@ export default function AboutPage() {
                 <span className="font-bold text-white uppercase tracking-widest text-xs block mb-2">
                   Indrajeet Singh — Proprietor
                 </span>
-                A three-decade career in motorsport design and karting manufacture. Indrajeet directs VCR’s design rights, IP strategy, and key client engagements.
+                A three-decade career in motorsport design and karting product development. Indrajeet directs VCR’s design rights, IP strategy, and key client engagements.
               </p>
               <p>
                 <span className="font-bold text-white uppercase tracking-widest text-xs block mb-2">
                   Ishaan Singh — Co-Founder
                 </span>
-                Leads engineering programs, new-product development, and the partnership with KnK Karts’ Belagavi manufacturing operation.
+                Leads engineering programs, new-product development, and VCR’s manufacturing-partner coordination.
               </p>
             </div>
           </div>
           <div>
             <h2 className="text-xs font-bold tracking-[0.5em] uppercase text-primary mb-6">
-              VCR × KNK KARTS
+              VCR PARTNERSHIP MODEL
             </h2>
             <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tightest leading-none mb-10">
               ONE DESIGN.<br />
-              <span className="text-primary italic">ONE FACTORY.</span>
+              <span className="text-primary italic">CLEAR OWNERSHIP.</span>
             </h3>
             <p className="text-white/70 font-light leading-relaxed text-lg">
-              VCR owns the design rights; KnK Karts Pvt Ltd, founded in 1999, manufactures them in Belagavi, Karnataka. The result is a single chain of custody — from concept sketch to factory weld jig to chassis-on-pallet — and a karting product line trusted by 350+ B2B clients across 12+ countries.
+              VCR owns the design direction, technical standards, and product architecture. KnK Karts Pvt Ltd supports selected manufacturing programs in Belagavi, Karnataka, giving VCR clients a clear chain of custody from concept sketch to factory weld jig to chassis-on-pallet.
             </p>
           </div>
         </div>

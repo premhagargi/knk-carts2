@@ -5,7 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 export const metadata: Metadata = {
   title: 'VCR | Visions, Concepts & Realities — Motorsport Design Firm',
   description:
-    'Specialized motorsport design firm developing high-performance, handcrafted go-karts. Precision engineering and race-ready performance by VCR, manufactured by KnK Karts.',
+    'VCR is a specialized motorsport design firm developing high-performance handcrafted karts, track systems, and operator programs through precision engineering and selected manufacturing partnerships.',
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased bg-black text-white selection:bg-primary">
+      <body className="font-body antialiased bg-background text-white selection:bg-primary">
         {children}
         <Toaster />
       </body>

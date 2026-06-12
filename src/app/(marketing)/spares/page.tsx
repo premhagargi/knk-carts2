@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 export const metadata = {
   title: 'Spares & Support | VCR Design',
   description:
-    'Genuine VCR / KnK Karts spares, technical support, and warranty service.',
+    'Genuine VCR spares, technical support, and warranty coordination for operators.',
 };
 
 const categories = [
@@ -26,7 +26,7 @@ export default function SparesPage() {
             GENUINE PARTS. <span className="text-primary italic">DIRECT.</span>
           </>
         }
-        description="Authentic VCR/KnK Karts spares, technical service, and warranty support — shipped from the Belagavi factory to operators worldwide."
+        description="Authentic VCR spares, technical service, and warranty support coordinated through the VCR network and manufacturing partners."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Spares' }]}
       />
       <section className="py-20">
@@ -60,7 +60,7 @@ export default function SparesPage() {
           </p>
           <Link
             href="/contact?inquiry=spares"
-            className="inline-flex items-center gap-3 bg-primary text-white px-12 py-6 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+            className="inline-flex items-center gap-3 bg-primary text-white px-12 py-6 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all"
           >
             Spares Inquiry <ArrowRight className="w-4 h-4" />
           </Link>

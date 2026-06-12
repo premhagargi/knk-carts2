@@ -30,7 +30,7 @@ const getProjects = unstable_cache(
 
 export const metadata = {
   title: 'Projects | VCR Design',
-  description: 'Selected circuit and fleet projects from VCR + KnK Karts.',
+  description: 'Selected circuit, fleet, and operator projects from VCR.',
 };
 
 export default async function ProjectsPage() {
@@ -46,7 +46,7 @@ export default async function ProjectsPage() {
             <span className="text-primary italic">12+ COUNTRIES.</span>
           </>
         }
-        description="A selection of recent circuit, fleet, and operations projects delivered by VCR with KnK Karts."
+        description="A selection of recent circuit, fleet, and operations projects led by VCR, with manufacturing partners involved where required."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Projects' }]}
       />
       <section className="py-20">

@@ -9,7 +9,7 @@ export default function Hero() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-kart')
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-brand-charcoal">
       {/* Grid Overlay */}
       <div className="absolute inset-0 grid-overlay z-10 pointer-events-none" />
       
@@ -23,7 +23,7 @@ export default function Hero() {
           priority
           data-ai-hint="racing kart"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal via-transparent to-brand-charcoal/50" />
       </div>
 
       <div className="container mx-auto px-6 relative z-20 pt-20">
@@ -52,10 +52,10 @@ export default function Hero() {
             </p>
             
             <div className="flex gap-4">
-              <button className="bg-primary text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all flex items-center gap-3">
+              <button className="bg-primary text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all flex items-center gap-3">
                 Design Concepts <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="border border-white/20 text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all">
+              <button className="border border-white/20 text-white px-10 py-5 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all">
                 Manufacturing Partner
               </button>
             </div>

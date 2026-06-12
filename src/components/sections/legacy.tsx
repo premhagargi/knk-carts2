@@ -35,7 +35,7 @@ export default function Legacy() {
               <h3 className="text-sm font-bold uppercase tracking-widest text-primary">The VCR Philosophy</h3>
               <p className="text-xl md:text-2xl font-light text-white/80 leading-relaxed">
                 Founded by Indrajeet Singh and Ishaan Singh, VCR represents the pinnacle of function-driven design. 
-                As the design authority for KnK Karts (P) Ltd., we reject mass-produced robotics in favor of precision hand-built engineering.
+                As an independent motorsport design authority, we define the concepts, chassis logic, and engineering standards behind high-performance karting programs.
               </p>
             </div>
 
@@ -54,7 +54,7 @@ export default function Legacy() {
               <p className="text-sm uppercase tracking-widest font-bold text-white/60 leading-loose">
                 Proprietor: Indrajeet Singh<br />
                 Co-Founder: Ishaan Singh<br />
-                Strategic Partner: KnK Karts
+                Manufacturing Partner: KnK Karts
               </p>
             </div>
           </motion.div>

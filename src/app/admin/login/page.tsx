@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import LoginForm from './login-form';
 
 export const dynamic = 'force-dynamic';
@@ -11,9 +12,18 @@ export default function LoginPage({
     <div className="min-h-screen bg-admin-bg text-white flex items-center justify-center px-6">
       <div className="w-full max-w-md">
         <div className="mb-12 text-center">
-          <span className="inline-block text-2xl font-bold tracking-tightest uppercase italic">
-            <span className="bg-primary px-1 text-black">VCR</span>{' '}
-            <span>ADMIN</span>
+          <span className="inline-flex flex-col items-center gap-3">
+            <Image
+              src="/VCR logo final 190116.png"
+              alt="VCR"
+              width={150}
+              height={77}
+              priority
+              className="h-14 w-auto object-contain"
+            />
+            <span className="text-[10px] uppercase tracking-widest font-black text-admin-muted">
+              Admin
+            </span>
           </span>
         </div>
         <div className="bg-admin-surface border border-admin-border p-10">

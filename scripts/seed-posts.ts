@@ -1,5 +1,5 @@
-// Seeds the blog with a curated set of posts drawn from VCR / KnK Karts'
-// public positioning (Belagavi karting manufacturer since 1999/2000, 350+
+// Seeds the blog with a curated set of posts drawn from VCR's
+// public positioning (motorsport design authority since 2000, 350+
 // B2B clients, Genesis chassis family, track-design services).
 //
 // Run: npm run seed:posts
@@ -94,7 +94,7 @@ Karting is the only motorsport where the chassis itself is a suspension element.
 
 A robotic cell can replicate a weld to within a thousandth of an inch. What it can't replicate is the welder reading the tube, slowing down on a thin-walled section, adjusting amperage on a tee joint where heat sink is uneven. Our welders in Belagavi have been doing this for fifteen, twenty years each. The chassis they produce are not dimensionally perfect. They are dynamically alive.
 
-We've made our peace with the trade-off. We will never be the cheapest manufacturer in our category. We will keep being the one drivers prefer when they sit in five chassis blind and pick the one that feels right. That's still us. We intend to keep it that way.`,
+We've made our peace with the trade-off. VCR will never chase the cheapest manufacturing route in the category. We will keep designing the chassis drivers prefer when they sit in five platforms blind and pick the one that feels right. That's still us. We intend to keep it that way.`,
   },
   {
     slug: 'lighting-night-karting',

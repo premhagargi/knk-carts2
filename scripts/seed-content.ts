@@ -42,7 +42,7 @@ const products: ProductSeed[] = [
     slug: 'genesis-sxx5',
     name: 'Genesis SXX5',
     category: 'racing',
-    short_description: 'Flagship sprint-racing chassis — KnK Karts × VCR.',
+    short_description: 'Flagship sprint-racing chassis by VCR.',
     description:
       "The Genesis SXX5 is VCR's reference design for sprint racing. Built around a CrMo tubular spaceframe with optimized torsional response, the SXX5 powers championship grids across India and partner circuits abroad.",
     specs: {
@@ -116,12 +116,12 @@ const products: ProductSeed[] = [
     },
   },
   {
-    slug: 'knk-cub',
-    name: 'KNK Cub',
+    slug: 'vcr-cub',
+    name: 'VCR Cub',
     category: 'junior',
     short_description: 'Entry-level junior kart for ages 6–10.',
     description:
-      'The Cub is the gateway product in the KnK × VCR range — a scaled junior chassis with conservative power delivery, used by driver-development academies and family-entertainment venues.',
+      'The Cub is the gateway product in the VCR range — a scaled junior chassis with conservative power delivery, used by driver-development academies and family-entertainment venues.',
     specs: {
       'Age range': '6–10 years',
       Engine: '4-stroke 120cc, governed',
@@ -211,7 +211,7 @@ const services: ServiceSeed[] = [
     name: 'Rental Operations Support',
     short_description: 'Ongoing operations support for the VCR rental program.',
     description:
-      'Spares, technical training, and operational benchmarking for rental operators running VCR/KnK fleets.',
+      'Spares, technical training, and operational benchmarking for rental operators running VCR fleets.',
     features: [
       'Spares stocking guidance',
       'Technician training',

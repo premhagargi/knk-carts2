@@ -29,7 +29,7 @@ const getProducts = unstable_cache(
 export const metadata = {
   title: 'Products | VCR Design',
   description:
-    'The VCR product lineup — Genesis SXX5, Genesis S25, TS22 Twin Seater, VCR Sport, Mudslinger SR-III, and KNK Cub.',
+    'The VCR product lineup — Genesis SXX5, Genesis S25, TS22 Twin Seater, VCR Sport, Mudslinger SR-III, and junior kart platforms.',
 };
 
 const categoryLabel: Record<string, string> = {
@@ -52,7 +52,7 @@ export default async function ProductsPage() {
             THE VCR <span className="text-primary italic">LINEUP.</span>
           </>
         }
-        description="Six production chassis and a constantly-evolving R&D pipeline. Each model is a VCR design, manufactured at the KnK Karts factory in Belagavi."
+        description="Six production chassis and a constantly-evolving R&D pipeline. Each model is a VCR design, developed under VCR technical standards and produced through trusted manufacturing partnerships."
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Products' }]}
       />
       <section className="py-20">

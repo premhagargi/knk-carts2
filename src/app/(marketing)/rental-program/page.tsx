@@ -75,7 +75,7 @@ export default function RentalProgramPage() {
           </p>
           <Link
             href="/contact?inquiry=rental"
-            className="inline-flex items-center gap-3 bg-primary text-white px-12 py-6 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all"
+            className="inline-flex items-center gap-3 bg-primary text-white px-12 py-6 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-brand-charcoal transition-all"
           >
             Rental Operator Inquiry <ArrowRight className="w-4 h-4" />
           </Link>

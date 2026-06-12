@@ -55,6 +55,17 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        brand: {
+          blush: '#dbb4b4',
+          charcoal: '#2e2f30',
+          sky: '#04a3e3',
+          red: '#ca2629',
+          steel: '#626668',
+          cyan: '#34b4ec',
+          slate: '#5c94ac',
+          ocean: '#0c7cb4',
+          deep: '#107098',
+        },
         admin: {
           bg: 'hsl(var(--admin-bg))',
           surface: 'hsl(var(--admin-surface))',

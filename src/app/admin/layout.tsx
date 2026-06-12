@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import AdminNav from './admin-nav';
 import SignOutButton from './sign-out-button';
@@ -33,9 +34,17 @@ export default async function AdminLayout({
       <aside className="w-64 shrink-0 border-r border-admin-border bg-admin-surface min-h-screen flex flex-col">
         <div className="p-6 border-b border-admin-border">
           <Link href="/" className="block">
-            <span className="text-xl font-bold tracking-tightest uppercase italic flex items-center gap-2">
-              <span className="bg-primary px-1 text-black">VCR</span>
-              <span>ADMIN</span>
+            <span className="flex items-center gap-3">
+              <Image
+                src="/VCR logo final 190116.png"
+                alt="VCR"
+                width={96}
+                height={49}
+                className="h-8 w-auto object-contain"
+              />
+              <span className="text-[10px] uppercase tracking-widest font-black text-admin-muted">
+                Admin
+              </span>
             </span>
           </Link>
         </div>

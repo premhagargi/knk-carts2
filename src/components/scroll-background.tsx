@@ -1,16 +1,15 @@
 "use client"
 
 import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
-import { useEffect, useState } from 'react'
 
 export default function ScrollBackground() {
   const { scrollYProgress } = useScroll()
   
-  // Define color stages: Black -> Deep Red -> Electric Blue -> Dark
+  // Define color stages from the brand palette.
   const bgColor = useTransform(
     scrollYProgress,
     [0, 0.3, 0.6, 1],
-    ["#000000", "#440000", "#002244", "#0a0a0a"]
+    ["#2e2f30", "#107098", "#0c7cb4", "#2e2f30"]
   )
 
   useMotionValueEvent(bgColor, "change", (latest) => {

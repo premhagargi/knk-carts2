@@ -50,7 +50,7 @@ export default function ChatbotWidget() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="absolute bottom-20 right-0 w-[350px] bg-black border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[500px]"
+            className="absolute bottom-20 right-0 w-[350px] bg-brand-charcoal border border-white/10 shadow-2xl overflow-hidden flex flex-col h-[500px]"
           >
             <div className="p-6 bg-primary flex justify-between items-center">
               <span className="text-[10px] font-black uppercase tracking-widest text-white">VCR AI ASSISTANT</span>
@@ -87,7 +87,7 @@ export default function ChatbotWidget() {
               />
               <button 
                 onClick={handleSend}
-                className="bg-primary p-4 hover:bg-white hover:text-black transition-colors"
+                className="bg-primary p-4 hover:bg-white hover:text-brand-charcoal transition-colors"
               >
                 <Send className="w-4 h-4" />
               </button>
@@ -100,7 +100,7 @@ export default function ChatbotWidget() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-primary flex items-center justify-center text-white shadow-xl hover:bg-white hover:text-black transition-all"
+        className="w-14 h-14 bg-primary flex items-center justify-center text-white shadow-xl hover:bg-white hover:text-brand-charcoal transition-all"
       >
         <MessageSquare className="w-6 h-6" />
       </motion.button>
